@@ -28,7 +28,15 @@ func Create(context *gin.Context) {
 		Last: time.Now(),
 	}
 
-	key, err := datastore.Put(appenginecontext, datastore.NewIncompleteKey(appenginecontext, "counters", nil), &counter)
+	key, err := datastore.Put(
+		appenginecontext,
+		datastore.NewIncompleteKey(
+			appenginecontext,
+			"counters",
+			nil,
+		),
+		&counter,
+	)
 	if err != nil {
 		context.AbortWithError(http.StatusInternalServerError, err)
 		appenginecontext.Debugf("ERROR: %s", err)
